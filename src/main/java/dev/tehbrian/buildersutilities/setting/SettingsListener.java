@@ -151,10 +151,6 @@ public final class SettingsListener implements Listener {
 		final Block block = event.getBlock();
 		final Material blockType = block.getType();
 
-		if (event.getSourceBlock().getType().isAir() || blockType.isAir()) {
-			return;
-		}
-
 		// allow grass blocks to turn snowy.
 		if (Tag.SNOW.isTagged(blockType)
 				&& block.getLocation().add(0, -1, 0).getBlock().getType().equals(Material.GRASS_BLOCK)) {
