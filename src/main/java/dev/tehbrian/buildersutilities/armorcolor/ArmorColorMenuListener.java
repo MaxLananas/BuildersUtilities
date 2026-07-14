@@ -54,7 +54,7 @@ public final class ArmorColorMenuListener implements Listener {
 		switch (slot) {
 			case 10, 19, 28, 37 -> {
 				final var currentItem = Objects.requireNonNull(event.getCurrentItem()).clone();
-				final var newItem = ItemEditor.edit(currentItem).unset(ITEM_NAME).unset(LORE).item();
+				final var newItem = ItemEditor.edit(currentItem).reset(ITEM_NAME).reset(LORE).item();
 				player.getInventory().addItem(newItem);
 			}
 			case 31, 33, 32 -> {
