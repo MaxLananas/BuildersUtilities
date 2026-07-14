@@ -8,12 +8,14 @@ import dev.tehbrian.buildersutilities.config.LangConfig;
 import dev.tehbrian.buildersutilities.util.ChestSize;
 import dev.tehbrian.buildersutilities.util.MenuItems;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
-import static love.broccolai.corn.minecraft.item.ItemBuilder.itemBuilder;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static io.papermc.paper.datacomponent.DataComponentTypes.LORE;
+import static io.papermc.paper.datacomponent.item.ItemLore.lore;
 
 public final class ColorMenuProvider {
 
@@ -42,32 +44,32 @@ public final class ColorMenuProvider {
 
 		Buttons.addToolbar(inv, this.langConfig, this.configConfig, session.generateInterfaceBanner());
 
-		inv.setItem(19, this.createSelectDye(Material.WHITE_DYE));
-		inv.setItem(20, this.createSelectDye(Material.LIGHT_GRAY_DYE));
-		inv.setItem(21, this.createSelectDye(Material.GRAY_DYE));
-		inv.setItem(22, this.createSelectDye(Material.BLACK_DYE));
+		inv.setItem(19, this.createSelectDye(ItemType.WHITE_DYE));
+		inv.setItem(20, this.createSelectDye(ItemType.LIGHT_GRAY_DYE));
+		inv.setItem(21, this.createSelectDye(ItemType.GRAY_DYE));
+		inv.setItem(22, this.createSelectDye(ItemType.BLACK_DYE));
 
-		inv.setItem(28, this.createSelectDye(Material.BROWN_DYE));
-		inv.setItem(29, this.createSelectDye(Material.RED_DYE));
-		inv.setItem(30, this.createSelectDye(Material.ORANGE_DYE));
-		inv.setItem(31, this.createSelectDye(Material.YELLOW_DYE));
-		inv.setItem(32, this.createSelectDye(Material.LIME_DYE));
-		inv.setItem(33, this.createSelectDye(Material.GREEN_DYE));
+		inv.setItem(28, this.createSelectDye(ItemType.BROWN_DYE));
+		inv.setItem(29, this.createSelectDye(ItemType.RED_DYE));
+		inv.setItem(30, this.createSelectDye(ItemType.ORANGE_DYE));
+		inv.setItem(31, this.createSelectDye(ItemType.YELLOW_DYE));
+		inv.setItem(32, this.createSelectDye(ItemType.LIME_DYE));
+		inv.setItem(33, this.createSelectDye(ItemType.GREEN_DYE));
 
-		inv.setItem(37, this.createSelectDye(Material.LIGHT_BLUE_DYE));
-		inv.setItem(38, this.createSelectDye(Material.CYAN_DYE));
-		inv.setItem(39, this.createSelectDye(Material.BLUE_DYE));
-		inv.setItem(40, this.createSelectDye(Material.PURPLE_DYE));
-		inv.setItem(41, this.createSelectDye(Material.MAGENTA_DYE));
-		inv.setItem(42, this.createSelectDye(Material.PINK_DYE));
+		inv.setItem(37, this.createSelectDye(ItemType.LIGHT_BLUE_DYE));
+		inv.setItem(38, this.createSelectDye(ItemType.CYAN_DYE));
+		inv.setItem(39, this.createSelectDye(ItemType.BLUE_DYE));
+		inv.setItem(40, this.createSelectDye(ItemType.PURPLE_DYE));
+		inv.setItem(41, this.createSelectDye(ItemType.MAGENTA_DYE));
+		inv.setItem(42, this.createSelectDye(ItemType.PINK_DYE));
 
 		return inv;
 	}
 
-	private ItemStack createSelectDye(final Material material) {
-		return itemBuilder(material)
-				.lore(this.langConfig.cl(NodePath.path("menus", "banner", "select")))
-				.build();
+	private ItemStack createSelectDye(final ItemType itemType) {
+		return itemModifier(itemType)
+				.set(LORE, lore(this.langConfig.cl(NodePath.path("menus", "banner", "select"))))
+				.yank();
 	}
 
 }

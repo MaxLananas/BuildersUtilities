@@ -19,13 +19,11 @@ repositories {
 	mavenCentral()
 	maven("https://repo.papermc.io/repository/maven-public/")
 	maven("https://repo.tehbrian.dev/releases/")
-	maven("https://repo.broccol.ai/snapshots/")
 }
 
 dependencies {
 	paperweight.paperDevBundle("26.2.build.+")
 	compileOnly("org.jspecify:jspecify:1.0.0")
-	implementation("love.broccolai.corn:corn-minecraft:4.1.0-SNAPSHOT")
 	implementation("org.bstats:bstats-bukkit:3.2.1")
 	implementation("org.incendo:cloud-paper:2.0.0-beta.17")
 	implementation("org.incendo:cloud-minecraft-extras:2.0.0-beta.17")
@@ -76,7 +74,6 @@ tasks {
 				"io.leangen",
 				"jakarta.inject",
 				"javax.annotation",
-				"love.broccolai.corn",
 				"net.kyori.option",
 				"org.aopalliance",
 				"org.bstats",

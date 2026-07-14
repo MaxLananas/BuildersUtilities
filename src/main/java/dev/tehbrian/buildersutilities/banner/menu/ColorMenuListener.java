@@ -14,10 +14,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
 import java.util.Objects;
 
+import static dev.tehbrian.buildersutilities.banner.Sayge.bannerDyeColor;
 import static java.util.Objects.requireNonNull;
 
 public final class ColorMenuListener implements Listener {
@@ -74,11 +76,13 @@ public final class ColorMenuListener implements Listener {
 		}
 
 		if (slot >= 18) { // color area.
-			final Material clickedItemType = requireNonNull(event.getCurrentItem()).getType();
-			if (!Tag.ITEMS_DYES.isTagged(clickedItemType)) {
+			final Material clickedMaterial = requireNonNull(event.getCurrentItem()).getType();
+			if (!Tag.ITEMS_DYES.isTagged(clickedMaterial)) {
 				return;
 			}
-			final DyeColor clickedColor = Sayge.colorFromItem(clickedItemType);
+
+			final ItemType clickedItemType = requireNonNull(clickedMaterial.asItemType());
+			final DyeColor clickedColor = bannerDyeColor(clickedItemType);
 
 			session.nextPatternColor(clickedColor);
 			session.showInterface(player);

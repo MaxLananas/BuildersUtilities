@@ -1,6 +1,5 @@
 package dev.tehbrian.buildersutilities.banner.menu;
 
-import com.destroystokyo.paper.MaterialSetTag;
 import com.google.inject.Inject;
 import dev.tehbrian.buildersutilities.banner.Buttons;
 import dev.tehbrian.buildersutilities.banner.PlayerSessions;
@@ -9,11 +8,13 @@ import dev.tehbrian.buildersutilities.banner.Session;
 import dev.tehbrian.buildersutilities.config.LangConfig;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
 import java.util.Objects;
@@ -63,11 +64,13 @@ public final class BaseMenuListener implements Listener {
 		}
 
 		if (slot >= 18) { // color area.
-			final Material clickedItemType = requireNonNull(event.getCurrentItem()).getType();
-			if (!MaterialSetTag.BANNERS.isTagged(clickedItemType)) {
+			final Material clickedMaterial = requireNonNull(event.getCurrentItem()).getType();
+			if (!Tag.BANNERS.isTagged(clickedMaterial)) {
 				return;
 			}
-			final DyeColor clickedColor = Sayge.colorFromItem(clickedItemType);
+
+			final ItemType clickedItemType = requireNonNull(clickedMaterial.asItemType());
+			final DyeColor clickedColor = Sayge.bannerDyeColor(clickedItemType);
 
 			session.baseColor(clickedColor);
 			session.showInterface(player);

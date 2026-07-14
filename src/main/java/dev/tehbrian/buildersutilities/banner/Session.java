@@ -17,8 +17,11 @@ import org.spongepowered.configurate.NodePath;
 import java.util.ArrayList;
 import java.util.List;
 
-import static love.broccolai.corn.minecraft.item.ItemBuilder.itemBuilder;
-import static love.broccolai.corn.minecraft.item.special.BannerBuilder.bannerBuilder;
+import static dev.tehbrian.buildersutilities.banner.Sayge.bannerItemType;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static io.papermc.paper.datacomponent.DataComponentTypes.BANNER_PATTERNS;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
+import static io.papermc.paper.datacomponent.item.BannerPatternLayers.bannerPatternLayers;
 
 /**
  * Holds the state of a player's banner creation session.
@@ -119,18 +122,18 @@ public final class Session {
 	}
 
 	public ItemStack generateInterfaceBanner() {
-		return itemBuilder(this.generateBanner())
-				.name(this.langConfig.c(NodePath.path("menus", "banner", "get-banner")))
-				.build();
+		return itemModifier(this.generateBanner())
+				.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "banner", "get-banner")))
+				.yank();
 	}
 
 	public ItemStack generateBanner() {
 		if (this.baseColor == null) {
 			return DEFAULT_BANNER;
 		} else {
-			return bannerBuilder(Sayge.bannerFromColor(this.baseColor))
-					.patterns(this.patterns)
-					.build();
+			return itemModifier(bannerItemType(this.baseColor))
+					.set(BANNER_PATTERNS, bannerPatternLayers(this.patterns))
+					.yank();
 		}
 	}
 

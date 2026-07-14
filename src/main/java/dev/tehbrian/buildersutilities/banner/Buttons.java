@@ -2,13 +2,15 @@ package dev.tehbrian.buildersutilities.banner;
 
 import dev.tehbrian.buildersutilities.config.ConfigConfig;
 import dev.tehbrian.buildersutilities.config.LangConfig;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
-import static love.broccolai.corn.minecraft.item.ItemBuilder.itemBuilder;
-import static love.broccolai.corn.minecraft.item.special.SkullBuilder.skullBuilder;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static dev.tehbrian.buildersutilities.util.ItemUtil.texturedProfile;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
+import static io.papermc.paper.datacomponent.DataComponentTypes.PROFILE;
 
 public final class Buttons {
 
@@ -21,23 +23,23 @@ public final class Buttons {
 	}
 
 	public static ItemStack randomize(final LangConfig langConfig, final ConfigConfig configConfig) {
-		return skullBuilder()
-				.name(langConfig.c(NodePath.path("menus", "banner", "randomize")))
-				.textures(configConfig.data().heads().banner().randomize())
-				.build();
+		return itemModifier(ItemType.PLAYER_HEAD)
+				.set(ITEM_NAME, langConfig.c(NodePath.path("menus", "banner", "randomize")))
+				.set(PROFILE, texturedProfile(configConfig.data().heads().banner().randomize()))
+				.yank();
 	}
 
 	public static ItemStack reset(final LangConfig langConfig) {
-		return itemBuilder(Material.BARRIER)
-				.name(langConfig.c(NodePath.path("menus", "banner", "reset")))
-				.build();
+		return itemModifier(ItemType.BARRIER)
+				.set(ITEM_NAME, langConfig.c(NodePath.path("menus", "banner", "reset")))
+				.yank();
 	}
 
 	public static ItemStack undo(final LangConfig langConfig, final ConfigConfig configConfig) {
-		return skullBuilder()
-				.name(langConfig.c(NodePath.path("menus", "banner", "undo")))
-				.textures(configConfig.data().heads().banner().undo())
-				.build();
+		return itemModifier(ItemType.PLAYER_HEAD)
+				.set(ITEM_NAME, langConfig.c(NodePath.path("menus", "banner", "undo")))
+				.set(PROFILE, texturedProfile(configConfig.data().heads().banner().undo()))
+				.yank();
 	}
 
 	public static void addToolbar(

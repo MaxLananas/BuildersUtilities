@@ -3,9 +3,9 @@ package dev.tehbrian.buildersutilities.banner.menu;
 import com.google.inject.Inject;
 import dev.tehbrian.buildersutilities.banner.Buttons;
 import dev.tehbrian.buildersutilities.banner.PlayerSessions;
-import dev.tehbrian.buildersutilities.banner.Sayge;
 import dev.tehbrian.buildersutilities.banner.Session;
 import dev.tehbrian.buildersutilities.config.LangConfig;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +16,10 @@ import org.spongepowered.configurate.NodePath;
 
 import java.util.Objects;
 
+import static dev.tehbrian.buildersutilities.banner.Sayge.patternTypes;
+import static dev.tehbrian.buildersutilities.banner.Sayge.randomPatternType;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
 import static java.util.Objects.requireNonNull;
-import static love.broccolai.corn.minecraft.item.special.BannerBuilder.bannerBuilder;
 
 public final class PatternMenuListener implements Listener {
 
@@ -55,7 +57,7 @@ public final class PatternMenuListener implements Listener {
 		if (slot == Buttons.RANDOM_SLOT) {
 			session.patterns().add(new Pattern(
 					requireNonNull(session.nextPatternColor()),
-					Sayge.randomPatternType()
+					randomPatternType()
 			));
 			session.nextPatternColor(null);
 			session.showInterface(player);
@@ -70,9 +72,10 @@ public final class PatternMenuListener implements Listener {
 			this.playerSessions.get(player).showInterface(player);
 		}
 
-		if (slot >= 9 && slot <= (8 + Sayge.patternTypes().size())) {
+		if (slot >= 9 && slot <= (8 + patternTypes().size())) {
 			// get the pattern from the clicked banner that PatternMenuProvider has already assigned the next pattern color to.
-			final Pattern clickedPattern = bannerBuilder(requireNonNull(event.getCurrentItem())).pattern(0);
+			final Pattern clickedPattern = itemModifier(requireNonNull(event.getCurrentItem()))
+					.get(DataComponentTypes.BANNER_PATTERNS).patterns().get(0);
 			session.patterns().add(clickedPattern);
 			session.nextPatternColor(null);
 			session.showInterface(player);

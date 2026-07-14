@@ -15,7 +15,9 @@ import org.spongepowered.configurate.NodePath;
 import java.util.Objects;
 import java.util.Random;
 
-import static love.broccolai.corn.minecraft.item.ItemBuilder.itemBuilder;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
+import static io.papermc.paper.datacomponent.DataComponentTypes.LORE;
 
 public final class ArmorColorMenuListener implements Listener {
 
@@ -52,7 +54,7 @@ public final class ArmorColorMenuListener implements Listener {
 		switch (slot) {
 			case 10, 19, 28, 37 -> {
 				final var currentItem = Objects.requireNonNull(event.getCurrentItem()).clone();
-				final var newItem = itemBuilder(currentItem).name(null).lore(null).build();
+				final var newItem = itemModifier(currentItem).unset(ITEM_NAME).unset(LORE).yank();
 				player.getInventory().addItem(newItem);
 			}
 			case 31, 33, 32 -> {

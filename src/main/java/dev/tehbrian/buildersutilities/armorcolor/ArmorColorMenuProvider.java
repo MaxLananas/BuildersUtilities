@@ -8,16 +8,21 @@ import dev.tehbrian.buildersutilities.util.MenuItems;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
 import java.util.List;
 
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static dev.tehbrian.buildersutilities.util.ItemUtil.texturedProfile;
+import static io.papermc.paper.datacomponent.DataComponentTypes.DYED_COLOR;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
+import static io.papermc.paper.datacomponent.DataComponentTypes.LORE;
+import static io.papermc.paper.datacomponent.DataComponentTypes.PROFILE;
+import static io.papermc.paper.datacomponent.item.DyedItemColor.dyedItemColor;
+import static io.papermc.paper.datacomponent.item.ItemLore.lore;
 import static java.util.Objects.requireNonNull;
-import static love.broccolai.corn.minecraft.item.ItemBuilder.itemBuilder;
-import static love.broccolai.corn.minecraft.item.special.LeatherArmorBuilder.leatherArmorBuilder;
-import static love.broccolai.corn.minecraft.item.special.SkullBuilder.skullBuilder;
 
 public final class ArmorColorMenuProvider {
 
@@ -46,75 +51,75 @@ public final class ArmorColorMenuProvider {
 
 		inv.setItem(
 				10,
-				itemBuilder(Material.LEATHER_HELMET)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "get-helmet")))
-						.build()
+				itemModifier(ItemType.LEATHER_HELMET)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "get-helmet")))
+						.yank()
 		);
 		inv.setItem(
 				19,
-				itemBuilder(Material.LEATHER_CHESTPLATE)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "get-chestplate")))
-						.build()
+				itemModifier(ItemType.LEATHER_CHESTPLATE)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "get-chestplate")))
+						.yank()
 		);
 		inv.setItem(
 				28,
-				itemBuilder(Material.LEATHER_LEGGINGS)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "get-leggings")))
-						.build()
+				itemModifier(ItemType.LEATHER_LEGGINGS)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "get-leggings")))
+						.yank()
 		);
 		inv.setItem(
 				37,
-				itemBuilder(Material.LEATHER_BOOTS)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "get-boots")))
-						.build()
+				itemModifier(ItemType.LEATHER_BOOTS)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "get-boots")))
+						.yank()
 		);
 
-		final List<Component> lore = this.langConfig.cl(NodePath.path("menus", "armor-color", "change"));
+		final List<Component> changeLore = this.langConfig.cl(NodePath.path("menus", "armor-color", "change"));
 
 		inv.setItem(
 				22,
-				skullBuilder()
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-red")))
-						.textures(this.configConfig.data().heads().armorColor().randomizeRed())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-red")))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().randomizeRed()))
+						.yank()
 		);
 		inv.setItem(
 				23,
-				skullBuilder()
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-green")))
-						.textures(this.configConfig.data().heads().armorColor().randomizeGreen())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-green")))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().randomizeGreen()))
+						.yank()
 		);
 		inv.setItem(
 				24,
-				skullBuilder()
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-blue")))
-						.textures(this.configConfig.data().heads().armorColor().randomizeBlue())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "randomize-blue")))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().randomizeBlue()))
+						.yank()
 		);
 		inv.setItem(
 				31,
-				skullBuilder().amount(16)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "red")))
-						.lore(lore)
-						.textures(this.configConfig.data().heads().armorColor().red())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD).amount(16)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "red")))
+						.set(LORE, lore(changeLore))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().red()))
+						.yank()
 		);
 		inv.setItem(
 				32,
-				skullBuilder().amount(16)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "green")))
-						.lore(lore)
-						.textures(this.configConfig.data().heads().armorColor().green())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD).amount(16)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "green")))
+						.set(LORE, lore(changeLore))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().green()))
+						.yank()
 		);
 		inv.setItem(
 				33,
-				skullBuilder().amount(16)
-						.name(this.langConfig.c(NodePath.path("menus", "armor-color", "blue")))
-						.lore(lore)
-						.textures(this.configConfig.data().heads().armorColor().blue())
-						.build()
+				itemModifier(ItemType.PLAYER_HEAD).amount(16)
+						.set(ITEM_NAME, this.langConfig.c(NodePath.path("menus", "armor-color", "blue")))
+						.set(LORE, lore(changeLore))
+						.set(PROFILE, texturedProfile(this.configConfig.data().heads().armorColor().blue()))
+						.yank()
 		);
 
 		this.update(inv);
@@ -141,10 +146,10 @@ public final class ArmorColorMenuProvider {
 
 		final Color finalColor = Color.fromRGB(r, g, b);
 
-		inv.setItem(10, leatherArmorBuilder(requireNonNull(inv.getItem(10))).color(finalColor).build());
-		inv.setItem(19, leatherArmorBuilder(requireNonNull(inv.getItem(19))).color(finalColor).build());
-		inv.setItem(28, leatherArmorBuilder(requireNonNull(inv.getItem(28))).color(finalColor).build());
-		inv.setItem(37, leatherArmorBuilder(requireNonNull(inv.getItem(37))).color(finalColor).build());
+		inv.setItem(10, itemModifier(requireNonNull(inv.getItem(10))).set(DYED_COLOR, dyedItemColor(finalColor)).yank());
+		inv.setItem(19, itemModifier(requireNonNull(inv.getItem(19))).set(DYED_COLOR, dyedItemColor(finalColor)).yank());
+		inv.setItem(28, itemModifier(requireNonNull(inv.getItem(28))).set(DYED_COLOR, dyedItemColor(finalColor)).yank());
+		inv.setItem(37, itemModifier(requireNonNull(inv.getItem(37))).set(DYED_COLOR, dyedItemColor(finalColor)).yank());
 	}
 
 }

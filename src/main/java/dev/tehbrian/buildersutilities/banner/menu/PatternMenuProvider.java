@@ -2,20 +2,26 @@ package dev.tehbrian.buildersutilities.banner.menu;
 
 import com.google.inject.Inject;
 import dev.tehbrian.buildersutilities.banner.Buttons;
-import dev.tehbrian.buildersutilities.banner.Sayge;
 import dev.tehbrian.buildersutilities.banner.Session;
 import dev.tehbrian.buildersutilities.config.ConfigConfig;
 import dev.tehbrian.buildersutilities.config.LangConfig;
 import dev.tehbrian.buildersutilities.util.ChestSize;
 import dev.tehbrian.buildersutilities.util.MenuItems;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemType;
 import org.spongepowered.configurate.NodePath;
 
+import java.util.List;
+
+import static dev.tehbrian.buildersutilities.banner.Sayge.patternTypes;
+import static dev.tehbrian.buildersutilities.util.ItemModifier.itemModifier;
+import static io.papermc.paper.datacomponent.DataComponentTypes.BANNER_PATTERNS;
+import static io.papermc.paper.datacomponent.DataComponentTypes.LORE;
+import static io.papermc.paper.datacomponent.item.BannerPatternLayers.bannerPatternLayers;
+import static io.papermc.paper.datacomponent.item.ItemLore.lore;
 import static java.util.Objects.requireNonNull;
-import static love.broccolai.corn.minecraft.item.special.BannerBuilder.bannerBuilder;
 
 public final class PatternMenuProvider {
 
@@ -45,17 +51,17 @@ public final class PatternMenuProvider {
 		Buttons.addToolbar(inv, this.langConfig, this.configConfig, session.generateInterfaceBanner());
 
 		requireNonNull(session.nextPatternColor());
-		final Material displayBase = switch (session.nextPatternColor()) {
-			case WHITE, LIGHT_GRAY, LIME, LIGHT_BLUE, YELLOW -> Material.BLACK_BANNER;
-			default -> Material.WHITE_BANNER;
+		final ItemType displayBase = switch (session.nextPatternColor()) {
+			case WHITE, LIGHT_GRAY, LIME, LIGHT_BLUE, YELLOW -> ItemType.BLACK_BANNER;
+			default -> ItemType.WHITE_BANNER;
 		};
 
-		for (int i = 0; i < Sayge.patternTypes().size(); i++) {
+		for (int i = 0; i < patternTypes().size(); i++) {
 			inv.setItem(
-					i + 9, bannerBuilder(displayBase)
-							.lore(this.langConfig.cl(NodePath.path("menus", "banner", "select")))
-							.addPattern(new Pattern(session.nextPatternColor(), Sayge.patternTypes().get(i)))
-							.build()
+					i + 9, itemModifier(displayBase)
+							.set(LORE, lore(this.langConfig.cl(NodePath.path("menus", "banner", "select"))))
+							.set(BANNER_PATTERNS, bannerPatternLayers(List.of(new Pattern(session.nextPatternColor(), patternTypes().get(i)))))
+							.yank()
 			);
 		}
 
