@@ -6,8 +6,6 @@ import dev.tehbrian.buildersutilities.user.User;
 import dev.tehbrian.buildersutilities.util.ChestSize;
 import dev.tehbrian.buildersutilities.util.MenuItems;
 import dev.tehbrian.buildersutilities.util.Permissions;
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static dev.tehbrian.agna.paper.ItemEditor.edit;
-import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
 
 public final class AbilityMenuProvider {
 

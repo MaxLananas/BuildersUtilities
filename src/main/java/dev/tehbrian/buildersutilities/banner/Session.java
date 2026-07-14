@@ -1,11 +1,11 @@
 package dev.tehbrian.buildersutilities.banner;
 
+import dev.tehbrian.agna.paper.ItemEditor;
 import dev.tehbrian.buildersutilities.banner.menu.BaseMenuProvider;
 import dev.tehbrian.buildersutilities.banner.menu.ColorMenuProvider;
 import dev.tehbrian.buildersutilities.banner.menu.DoneMenuProvider;
 import dev.tehbrian.buildersutilities.banner.menu.PatternMenuProvider;
 import dev.tehbrian.buildersutilities.config.LangConfig;
-import dev.tehbrian.agna.paper.ItemEditor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -18,8 +18,8 @@ import org.spongepowered.configurate.NodePath;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.tehbrian.buildersutilities.banner.Sayge.bannerItemType;
 import static dev.tehbrian.agna.paper.ItemEditor.edit;
+import static dev.tehbrian.buildersutilities.banner.Sayge.bannerItemType;
 
 /**
  * Holds the state of a player's banner creation session.

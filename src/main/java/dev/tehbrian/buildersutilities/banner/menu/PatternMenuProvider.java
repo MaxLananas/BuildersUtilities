@@ -15,8 +15,8 @@ import org.spongepowered.configurate.NodePath;
 
 import java.util.List;
 
-import static dev.tehbrian.buildersutilities.banner.Sayge.patternTypes;
 import static dev.tehbrian.agna.paper.ItemEditor.edit;
+import static dev.tehbrian.buildersutilities.banner.Sayge.patternTypes;
 import static java.util.Objects.requireNonNull;
 
 public final class PatternMenuProvider {

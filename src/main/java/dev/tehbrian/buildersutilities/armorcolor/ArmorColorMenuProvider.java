@@ -1,10 +1,10 @@
 package dev.tehbrian.buildersutilities.armorcolor;
 
 import com.google.inject.Inject;
+import dev.tehbrian.agna.paper.ItemEditor;
 import dev.tehbrian.buildersutilities.config.ConfigConfig;
 import dev.tehbrian.buildersutilities.config.LangConfig;
 import dev.tehbrian.buildersutilities.util.ChestSize;
-import dev.tehbrian.agna.paper.ItemEditor;
 import dev.tehbrian.buildersutilities.util.MenuItems;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
