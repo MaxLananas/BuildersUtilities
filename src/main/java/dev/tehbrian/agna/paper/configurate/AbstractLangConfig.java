@@ -7,6 +7,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.NodePath;
 
+@SuppressWarnings("checkstyle:DesignForExtension")
 public abstract class AbstractLangConfig<W extends ConfigurateWrapper<?>>
 		extends AbstractConfig<W> {
 
@@ -20,10 +21,12 @@ public abstract class AbstractLangConfig<W extends ConfigurateWrapper<?>>
 	}
 
 	public final Component c(final NodePath path) {
-		return MiniMessage.miniMessage().deserialize(this.getAndVerifyString(path));
+		return MiniMessage.miniMessage().deserialize(
+				this.getAndVerifyString(path)
+		);
 	}
 
-	protected final String getAndVerifyString(final NodePath path) {
+	protected String getAndVerifyString(final NodePath path) {
 		final String value = this.wrapper().rootNode().node(path).getString();
 		return value != null ? value : "";
 	}
