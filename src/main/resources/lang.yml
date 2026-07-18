@@ -2,7 +2,7 @@
 # Message formatting syntax is MiniMessage: https://docs.papermc.io/adventure/minimessage/
 
 # Server prefix. Use {prefix} to reference in any message.
-prefix: "<gradient:#5D5D5D:#D7D7D7><bold>BTE Corsge</bold></gradient><dark_gray>»</dark_gray>"
+prefix: "<gradient:#5D5D5D:#D7D7D7><bold>BTE Corse</bold></gradient><dark_gray><bold>»</bold></dark_gray>"
 
 commands:
   advanced-fly:
@@ -21,16 +21,28 @@ commands:
   no-permission: ""
   help:
     header: "{prefix} <gray>Available commands:"
-    commands: |-
-      <#6699FF>/bu <gray>→ <white>Open ability menu
-      <#6699FF>/bloc <gray>→ <white>Open special items menu
-      <#6699FF>/af [on|off] <gray>→ <white>Toggle advanced fly
-      <#6699FF>/nv [on|off] <gray>→ <white>Toggle night vision
-      <#6699FF>/nc [on|off] <gray>→ <white>Toggle noclip
-      <#6699FF>/ac <gray>→ <white>Open armor color creator
-      <#6699FF>/bn <gray>→ <white>Open banner creator
-      <#6699FF>/bu rc <gray>→ <white>Reload chunks around you
-      <#6699FF>/bu reload <gray>→ <white>Reload config
+    lines:
+      - "<#6699FF>/bu <gray>→ <white>Open ability menu"
+      - "<#6699FF>/bloc <gray>→ <white>Open special items"
+      - "<#6699FF>/ac <gray>→ <white>Armor color creator"
+      - "<#6699FF>/bn <gray>→ <white>Banner creator"
+      - "<#6699FF>/af [on|off] <gray>→ <white>Toggle advanced fly"
+      - "<#6699FF>/nv [on|off] <gray>→ <white>Toggle night vision"
+      - "<#6699FF>/nc [on|off] <gray>→ <white>Toggle noclip"
+      - "<#6699FF>/bu rc <gray>→ <white>Reload chunks"
+      - "<#6699FF>/bu reload <gray>→ <white>Reload config"
+  waypoint:
+    added: "{prefix} <#66FF99>Waypoint <white>{name}</white> saved."
+    removed: "{prefix} <#FF6699>Waypoint <white>{name}</white> deleted."
+    not-found: "{prefix} <#FF6699>Waypoint <white>{name}</white> not found."
+    teleported: "{prefix} <#66FF99>Teleported to <white>{name}</white>."
+    list-header: "{prefix} <gray>Your waypoints:"
+    list-empty: "{prefix} <gray>No waypoints saved."
+    list-entry: "<#6699FF> {name} <gray>({x}, {y}, {z}) <white>{world}"
+  time:
+    set: "{prefix} <#99FFFF>Time set to <white>{time}</white>."
+  weather:
+    set: "{prefix} <#99FFFF>Weather set to <white>{weather}</white>."
 
 menus:
   armor-color:
@@ -123,4 +135,4 @@ menus:
         <#6699FF>mode flight.
 
 # No touch!
-version: 3
+version: 4
