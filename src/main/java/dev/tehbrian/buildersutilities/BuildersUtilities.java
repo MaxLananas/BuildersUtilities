@@ -97,9 +97,7 @@ public final class BuildersUtilities extends JavaPlugin {
 		this.initRestrictions();
 
 		this.injector.getInstance(NoclipManager.class).start();
-
-		// initialize bStats.
-		Metrics _ = new Metrics(this, BSTATS_PLUGIN_ID);
+		new Metrics(this, BSTATS_PLUGIN_ID);
 
 		new UpdateChecker(this, "buildersutilities").checkForUpdates();
 	}
