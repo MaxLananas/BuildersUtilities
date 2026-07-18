@@ -1,29 +1,40 @@
 # Language configuration for all messages sent by BuildersUtilities.
+# Message formatting syntax is MiniMessage: https://docs.papermc.io/adventure/minimessage/
 
-# Message formatting syntax is MiniMessage, which you can read up on here:
-# https://docs.papermc.io/adventure/minimessage/
+# Server prefix. Use {prefix} to reference in any message.
+prefix: "<gradient:#5D5D5D:#D7D7D7><bold>BTE Corsge</bold></gradient><dark_gray>»</dark_gray>"
 
 commands:
   advanced-fly:
-    enabled: "<#6699FF>BU <gray>› <#66FF99>Advanced Fly enabled."
-    disabled: "<#6699FF>BU <gray>› <#FF6699>Advanced Fly disabled."
+    enabled: "{prefix} <#66FF99>Advanced Fly enabled."
+    disabled: "{prefix} <#FF6699>Advanced Fly disabled."
   night-vision:
-    enabled: "<#6699FF>BU <gray>› <#66FF99>Night Vision enabled."
-    disabled: "<#6699FF>BU <gray>› <#FF6699>Night Vision disabled."
+    enabled: "{prefix} <#66FF99>Night Vision enabled."
+    disabled: "{prefix} <#FF6699>Night Vision disabled."
   noclip:
-    enabled: "<#6699FF>BU <gray>› <#66FF99>Noclip enabled."
-    disabled: "<#6699FF>BU <gray>› <#FF6699>Noclip disabled."
-  rc: "<#6699FF>BU <gray>› <#99FFFF>Reloaded the chunks around you."
+    enabled: "{prefix} <#66FF99>Noclip enabled."
+    disabled: "{prefix} <#FF6699>Noclip disabled."
+  rc: "{prefix} <#99FFFF>Reloaded the chunks around you."
   reload:
-    success: "<#6699FF>BU <gray>› <#99FFFF>The configuration has been successfully reloaded."
-    failure: "<#6699FF>BU <gray>› <#FF6699>Failed to load configuration, please check the console."
-  # The message shown to players when they lack permission to run a command.
-  # Leave this empty to use the default message configured in paper.yml.
+    success: "{prefix} <#99FFFF>Configuration reloaded successfully."
+    failure: "{prefix} <#FF6699>Failed to load configuration, check console."
   no-permission: ""
+  help:
+    header: "{prefix} <gray>Available commands:"
+    commands: |-
+      <#6699FF>/bu <gray>→ <white>Open ability menu
+      <#6699FF>/bloc <gray>→ <white>Open special items menu
+      <#6699FF>/af [on|off] <gray>→ <white>Toggle advanced fly
+      <#6699FF>/nv [on|off] <gray>→ <white>Toggle night vision
+      <#6699FF>/nc [on|off] <gray>→ <white>Toggle noclip
+      <#6699FF>/ac <gray>→ <white>Open armor color creator
+      <#6699FF>/bn <gray>→ <white>Open banner creator
+      <#6699FF>/bu rc <gray>→ <white>Reload chunks around you
+      <#6699FF>/bu reload <gray>→ <white>Reload config
 
 menus:
   armor-color:
-    inventory-name: "<#333399>Armor Color Creator"
+    inventory-name: "{prefix} <#333399>Armor Color"
     change: |-
       <gray>
       <gray>Left click to increase
@@ -41,10 +52,10 @@ menus:
     randomize-blue: "<#99FFFF>Randomize Blue"
 
   banner:
-    base-inventory-name: "<#333399>Select Base"
-    color-inventory-name: "<#333399>Select Color"
-    pattern-inventory-name: "<#333399>Select Pattern"
-    done-inventory-name: "<#333399>Maximum Patterns Reached"
+    base-inventory-name: "{prefix} <#333399>Select Base"
+    color-inventory-name: "{prefix} <#333399>Select Color"
+    pattern-inventory-name: "{prefix} <#333399>Select Pattern"
+    done-inventory-name: "{prefix} <#333399>Max Patterns Reached"
     select: |-
       <gray>
       <gray>Click to select
@@ -54,10 +65,10 @@ menus:
     reset: "<#FF6699>Reset"
 
   special:
-    inventory-name: "<#333399>Special Items Menu"
+    inventory-name: "{prefix} <#333399>Special Items"
 
   ability:
-    inventory-name: "<#333399>Ability Menu"
+    inventory-name: "{prefix} <#333399>Abilities"
     status:
       enabled: |-
 
