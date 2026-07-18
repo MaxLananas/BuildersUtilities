@@ -7,6 +7,7 @@ public final class Permissions {
 	public static final String BANNER = ROOT + ".banner";
 	public static final String ARMOR_COLOR = ROOT + ".armorcolor";
 	public static final String ABILITY = ROOT + ".ability";
+	public static final String BLOC = ROOT + ".bloc";
 
 	public static final String ADVANCED_FLY = ROOT + ".advancedfly";
 	public static final String NIGHT_VISION = ROOT + ".nightvision";
@@ -14,7 +15,8 @@ public final class Permissions {
 
 	public static final String IRON_DOOR_TOGGLE = ROOT + ".irondoortoggle";
 	public static final String DOUBLE_SLAB_BREAK = ROOT + ".doubleslabbreak";
-	public static final String GLAZED_TERRACOTTA_ROTATE = ROOT + ".glazedterracottarotate";
+	public static final String GLAZED_TERRACOTTA_ROTATE =
+			ROOT + ".glazedterracottarotate";
 
 	public static final String RC = ROOT + ".rc";
 	public static final String RELOAD = ROOT + ".reload";
