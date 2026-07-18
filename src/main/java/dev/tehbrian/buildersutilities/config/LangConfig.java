@@ -13,9 +13,28 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
 public final class LangConfig extends AbstractLangConfig<YamlConfigurateWrapper> {
 
+	private String prefix = "";
+
 	@Inject
 	public LangConfig(final @Named("dataFolder") Path dataFolder) {
 		super(new YamlConfigurateWrapper(dataFolder.resolve("lang.yml")));
+	}
+
+	private String prefix() {
+		if (this.prefix.isEmpty()) {
+			final String p = this.wrapper().rootNode()
+					.node("prefix").getString();
+			if (p != null) {
+				this.prefix = p;
+			}
+		}
+		return this.prefix;
+	}
+
+	@Override
+	protected String getAndVerifyString(final NodePath path) {
+		final String raw = super.getAndVerifyString(path);
+		return raw.replace("{prefix}", this.prefix());
 	}
 
 	/**
@@ -31,5 +50,4 @@ public final class LangConfig extends AbstractLangConfig<YamlConfigurateWrapper>
 		return this.getAndVerifyString(path).lines()
 				.map(miniMessage()::deserialize).toList();
 	}
-
 }
