@@ -8,17 +8,16 @@ plugins {
 }
 
 group = "dev.tehbrian"
-version = "1.10.1"
+version = "1.10.0"
 description = "A curated bundle of tiny features that help builders do their thing."
 
 java {
-	toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+	toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 repositories {
 	mavenCentral()
 	maven("https://repo.papermc.io/repository/maven-public/")
-	maven("https://repo.tehbrian.dev/releases/")
 }
 
 dependencies {
@@ -29,8 +28,6 @@ dependencies {
 	implementation("org.incendo:cloud-minecraft-extras:2.0.0-beta.17")
 	implementation("com.google.inject:guice:7.0.0")
 	implementation("org.spongepowered:configurate-yaml:4.2.0")
-	implementation("dev.tehbrian:agna-paper:1.1.2")
-	implementation("dev.tehbrian:mayi-paper:1.0.0")
 }
 
 tasks {
@@ -69,8 +66,6 @@ tasks {
 				"com.google.inject",
 				"com.google.j2objc",
 				"com.google.thirdparty",
-				"dev.tehbrian.agna",
-				"dev.tehbrian.mayi",
 				"io.leangen",
 				"jakarta.inject",
 				"javax.annotation",
