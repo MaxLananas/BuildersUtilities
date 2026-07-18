@@ -98,7 +98,9 @@ public final class BuildersUtilitiesCommand {
 					final ServerPlayer nmsPlayer = ((CraftPlayer) sender).getHandle();
 					final ServerLevel nmsLevel = ((CraftWorld) sender.getWorld()).getHandle();
 					for (final Chunk chunk : chunksToReload) {
-						final ChunkHolder nmsChunk = nmsLevel.getChunkSource().chunkMap.getVisibleChunkIfPresent(ChunkPos.asLong(chunk.getX(), chunk.getZ()));
+						final long key = ChunkPos.asLong(chunk.getX(), chunk.getZ());
+						final ChunkHolder nmsChunk = nmsLevel.getChunkSource()
+								.chunkMap.getVisibleChunkIfPresent(key);
 						if (nmsChunk == null) {
 							continue;
 						}
