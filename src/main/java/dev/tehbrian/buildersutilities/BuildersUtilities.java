@@ -55,9 +55,6 @@ import static dev.tehbrian.agna.paper.PluginUtils.registerListeners;
 import static org.incendo.cloud.execution.ExecutionCoordinator.simpleCoordinator;
 import static org.incendo.cloud.paper.util.sender.PaperSimpleSenderMapper.simpleSenderMapper;
 
-/**
- * The main class for the BuildersUtilities plugin.
- */
 public final class BuildersUtilities extends JavaPlugin {
 
 	private static final int BSTATS_PLUGIN_ID = 31665;
@@ -97,19 +94,12 @@ public final class BuildersUtilities extends JavaPlugin {
 		this.initRestrictions();
 
 		this.injector.getInstance(NoclipManager.class).start();
+
 		new Metrics(this, BSTATS_PLUGIN_ID);
 
 		new UpdateChecker(this, "buildersutilities").checkForUpdates();
 	}
 
-	/**
-	 * Loads the plugin's configuration.
-	 * <p>
-	 * If there is an error while loading a config file, the exception is logged
-	 * and the file is skipped.
-	 *
-	 * @return whether all config files were successfully loaded
-	 */
 	public boolean loadConfiguration() {
 		return new ConfigLoader(this).load(List.of(
 				Loadable.ofVersioned("config.yml", this.injector.getInstance(ConfigConfig.class), 2),
@@ -118,9 +108,6 @@ public final class BuildersUtilities extends JavaPlugin {
 		));
 	}
 
-	/**
-	 * @return whether it was successful
-	 */
 	private boolean initCommands() {
 		if (this.commandManager != null) {
 			throw new IllegalStateException("The CommandManager is already instantiated");
@@ -201,5 +188,4 @@ public final class BuildersUtilities extends JavaPlugin {
 
 		loader.load(this.injector.getInstance(PaperMayi.class));
 	}
-
 }
