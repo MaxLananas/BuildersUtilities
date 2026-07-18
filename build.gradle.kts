@@ -12,7 +12,7 @@ version = "1.10.0"
 description = "A curated bundle of tiny features that help builders do their thing."
 
 java {
-	toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+	toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 repositories {
@@ -84,6 +84,6 @@ tasks {
 	}
 
 	runServer {
-		minecraftVersion("26.2")
+		minecraftVersion("1.21.10")
 	}
 }
