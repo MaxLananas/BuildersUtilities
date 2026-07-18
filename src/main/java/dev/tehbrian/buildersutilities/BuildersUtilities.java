@@ -32,8 +32,8 @@ import dev.tehbrian.buildersutilities.setting.SettingsListener;
 import dev.tehbrian.buildersutilities.special.SpecialMenuListener;
 import dev.tehbrian.mayi.paper.PaperMayi;
 import dev.tehbrian.mayi.paper.PaperRestrictionLoader;
-import dev.tehbrian.mayi.paper.restrictions.R_PlotSquared_6_7;
-import dev.tehbrian.mayi.paper.restrictions.R_WorldGuard_7;
+import dev.tehbrian.mayi.paper.restrictions.RPlotSquared67;
+import dev.tehbrian.mayi.paper.restrictions.RWorldGuard7;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bstats.bukkit.Metrics;
@@ -183,7 +183,7 @@ public final class BuildersUtilities extends JavaPlugin {
 		final var loader = new PaperRestrictionLoader(
 				this.getSLF4JLogger(),
 				Arrays.asList(this.getServer().getPluginManager().getPlugins()),
-				List.of(R_PlotSquared_6_7.class, R_WorldGuard_7.class)
+				List.of(RPlotSquared67.class, RWorldGuard7.class)
 		);
 
 		loader.load(this.injector.getInstance(PaperMayi.class));
