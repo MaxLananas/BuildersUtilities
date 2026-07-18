@@ -1,8 +1,8 @@
 package dev.tehbrian.agna.configurate;
 
 import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurationLoader;
 import org.spongepowered.configurate.ConfigurateException;
+import org.spongepowered.configurate.loader.ConfigurationLoader;
 
 import java.nio.file.Path;
 
@@ -29,6 +29,10 @@ public class ConfigurateWrapper<T extends ConfigurationLoader<CommentedConfigura
 
 	public CommentedConfigurationNode rootNode() {
 		return this.rootNode;
+	}
+
+	public T loader() {
+		return this.loader;
 	}
 
 	public Path path() {
