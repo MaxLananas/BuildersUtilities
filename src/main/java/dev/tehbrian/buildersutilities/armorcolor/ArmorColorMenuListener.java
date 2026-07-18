@@ -16,9 +16,6 @@ import org.spongepowered.configurate.NodePath;
 import java.util.Objects;
 import java.util.Random;
 
-import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_NAME;
-import static io.papermc.paper.datacomponent.DataComponentTypes.LORE;
-
 public final class ArmorColorMenuListener implements Listener {
 
 	private final ArmorColorMenuProvider armorColorInventoryProvider;
@@ -54,7 +51,8 @@ public final class ArmorColorMenuListener implements Listener {
 		switch (slot) {
 			case 10, 19, 28, 37 -> {
 				final var currentItem = Objects.requireNonNull(event.getCurrentItem()).clone();
-				final var newItem = ItemEditor.edit(currentItem).reset(ITEM_NAME).reset(LORE).item();
+				final var newItem = ItemEditor.edit(currentItem)
+						.resetName().resetLore().item();
 				player.getInventory().addItem(newItem);
 			}
 			case 31, 33, 32 -> {
@@ -73,7 +71,8 @@ public final class ArmorColorMenuListener implements Listener {
 					item.setAmount(1);
 				}
 			}
-			case 22, 23, 24 -> Objects.requireNonNull(inventory.getItem(slot + 9)).setAmount(new Random().nextInt(33) + 1);
+			case 22, 23, 24 -> Objects.requireNonNull(inventory.getItem(slot + 9))
+					.setAmount(new Random().nextInt(33) + 1);
 			default -> {
 			}
 		}
