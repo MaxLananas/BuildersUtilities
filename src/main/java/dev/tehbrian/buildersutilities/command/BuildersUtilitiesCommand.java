@@ -55,7 +55,6 @@ public final class BuildersUtilitiesCommand {
 		return Math.min(Math.min(a, b), c);
 	}
 
-	// https://www.spigotmc.org/threads/getting-chunks-around-a-center-chunk-within-a-specific-radius.422279/
 	private static Collection<Chunk> around(final Chunk origin, final int radius) {
 		final World world = origin.getWorld();
 
@@ -99,10 +98,8 @@ public final class BuildersUtilitiesCommand {
 					final ServerPlayer nmsPlayer = ((CraftPlayer) sender).getHandle();
 					final ServerLevel nmsLevel = ((CraftWorld) sender.getWorld()).getHandle();
 					for (final Chunk chunk : chunksToReload) {
-						final ChunkPos nmsChunkPos = new ChunkPos(chunk.getX(), chunk.getZ());
-						final ChunkHolder nmsChunk = nmsLevel.getChunkSource().chunkMap.getVisibleChunkIfPresent(nmsChunkPos.longKey());
+						final ChunkHolder nmsChunk = nmsLevel.getChunkSource().chunkMap.getVisibleChunkIfPresent(ChunkPos.asLong(chunk.getX(), chunk.getZ()));
 						if (nmsChunk == null) {
-							// chunk isn't loaded. no need to worry about it.
 							continue;
 						}
 						final LevelChunk nmsChunkToSend = nmsChunk.getChunkToSend();
