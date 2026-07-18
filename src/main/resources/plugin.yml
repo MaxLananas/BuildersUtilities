@@ -1,13 +1,13 @@
 name: BuildersUtilities
 description: ${description}
-authors: [ TehBrian, Arcaniax ]
+authors: [ TehBrian, Arcaniax, MaxLananas ]
 website: https://github.com/TehBrian/BuildersUtilities
 
 softdepend: [ PlotSquared, WorldGuard ]
 
 version: ${version}
 main: dev.tehbrian.buildersutilities.BuildersUtilities
-api-version: "26.2"
+api-version: "1.21"
 
 permissions:
   buildersutilities.ability:
