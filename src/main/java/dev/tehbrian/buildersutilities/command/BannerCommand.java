@@ -20,17 +20,23 @@ public final class BannerCommand {
 		this.playerSessions = playerSessions;
 	}
 
-	public void register(final PaperCommandManager<Source> commandManager) {
-		final var main = commandManager.commandBuilder("banner", "bc")
-				.commandDescription(description("Opens the banner creator."))
+	public void register(
+			final PaperCommandManager<Source> commandManager
+	) {
+		final var main = commandManager.commandBuilder(
+				"banner", "bc", "bn"
+		)
+				.commandDescription(description(
+						"Opens the banner creator."
+				))
 				.permission(Permissions.BANNER)
 				.senderType(PlayerSource.class)
 				.handler(c -> {
 					final var sender = c.sender().source();
-					this.playerSessions.get(sender).showInterface(sender);
+					this.playerSessions.get(sender)
+							.showInterface(sender);
 				});
 
 		commandManager.command(main);
 	}
-
 }
