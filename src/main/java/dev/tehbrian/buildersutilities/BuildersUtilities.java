@@ -20,9 +20,11 @@ import dev.tehbrian.buildersutilities.command.AdvancedFlyCommand;
 import dev.tehbrian.buildersutilities.command.ArmorColorCommand;
 import dev.tehbrian.buildersutilities.command.BannerCommand;
 import dev.tehbrian.buildersutilities.command.BlocCommand;
+import dev.tehbrian.buildersutilities.command.BuildCommand;
 import dev.tehbrian.buildersutilities.command.BuildersUtilitiesCommand;
 import dev.tehbrian.buildersutilities.command.NightVisionCommand;
 import dev.tehbrian.buildersutilities.command.NoclipCommand;
+import dev.tehbrian.buildersutilities.command.WaypointCommand;
 import dev.tehbrian.buildersutilities.command.WorldEditAliases;
 import dev.tehbrian.buildersutilities.config.ConfigConfig;
 import dev.tehbrian.buildersutilities.config.LangConfig;
@@ -77,14 +79,11 @@ public final class BuildersUtilities extends JavaPlugin {
 			);
 		} catch (final Exception e) {
 			this.getSLF4JLogger().error(
-					"Something went wrong while creating the injector. "
-							+ "Disabling plugin"
+					"Something went wrong creating injector."
+							+ " Disabling plugin"
 			);
 			disableSelf(this);
-			this.getSLF4JLogger().error(
-					"Printing stack trace. Please send this to the devs",
-					e
-			);
+			this.getSLF4JLogger().error("Stack trace:", e);
 			return;
 		}
 
@@ -105,7 +104,8 @@ public final class BuildersUtilities extends JavaPlugin {
 
 		new Metrics(this, BSTATS_PLUGIN_ID);
 
-		new UpdateChecker(this, "buildersutilities").checkForUpdates();
+		new UpdateChecker(this, "buildersutilities")
+				.checkForUpdates();
 	}
 
 	public boolean loadConfiguration() {
@@ -118,7 +118,7 @@ public final class BuildersUtilities extends JavaPlugin {
 				Loadable.ofVersioned(
 						"lang.yml",
 						this.injector.getInstance(LangConfig.class),
-						3
+						4
 				),
 				Loadable.ofVersioned(
 						"special.yml",
@@ -131,7 +131,7 @@ public final class BuildersUtilities extends JavaPlugin {
 	private boolean initCommands() {
 		if (this.commandManager != null) {
 			throw new IllegalStateException(
-					"The CommandManager is already instantiated"
+					"CommandManager already instantiated"
 			);
 		}
 
@@ -145,25 +145,20 @@ public final class BuildersUtilities extends JavaPlugin {
 
 		final MinecraftExceptionHandler
 				.MessageFactory<Source, NoPermissionException>
-				noPermissionHandler = (formatter, ctx) -> {
-			final var noPermission = langConfig.c(
+				noPermHandler = (formatter, ctx) -> {
+			final var msg = langConfig.c(
 					NodePath.path("commands", "no-permission")
 			);
-			if (isEmpty(noPermission)) {
-				return this.getServer().permissionMessage();
-			} else {
-				return noPermission;
-			}
+			return isEmpty(msg)
+					? this.getServer().permissionMessage()
+					: msg;
 		};
 
 		MinecraftExceptionHandler.create(Source::source)
 				.defaultArgumentParsingHandler()
 				.defaultInvalidSenderHandler()
 				.defaultInvalidSyntaxHandler()
-				.handler(
-						NoPermissionException.class,
-						noPermissionHandler
-				)
+				.handler(NoPermissionException.class, noPermHandler)
 				.defaultCommandExecutionHandler()
 				.registerTo(this.commandManager);
 
@@ -175,11 +170,15 @@ public final class BuildersUtilities extends JavaPlugin {
 				.register(this.commandManager);
 		this.injector.getInstance(BlocCommand.class)
 				.register(this.commandManager);
+		this.injector.getInstance(BuildCommand.class)
+				.register(this.commandManager);
 		this.injector.getInstance(BuildersUtilitiesCommand.class)
 				.register(this.commandManager);
 		this.injector.getInstance(NightVisionCommand.class)
 				.register(this.commandManager);
 		this.injector.getInstance(NoclipCommand.class)
+				.register(this.commandManager);
+		this.injector.getInstance(WaypointCommand.class)
 				.register(this.commandManager);
 
 		final ConfigConfig cc =
@@ -194,9 +193,8 @@ public final class BuildersUtilities extends JavaPlugin {
 						.register(this.commandManager, true);
 			} else {
 				this.getSLF4JLogger().error(
-						"worledit-aliases is enabled in config.yml, "
-								+ "but WorldEdit isn't present. "
-								+ "WorldEdit aliases will not be registered"
+						"worledit-aliases enabled but WorldEdit"
+								+ " isn't present."
 				);
 			}
 		}
@@ -208,15 +206,25 @@ public final class BuildersUtilities extends JavaPlugin {
 		registerListeners(
 				this,
 				this.injector.getInstance(AbilityMenuListener.class),
-				this.injector.getInstance(ArmorColorMenuListener.class),
+				this.injector.getInstance(
+						ArmorColorMenuListener.class
+				),
 				this.injector.getInstance(SpecialMenuListener.class),
 				this.injector.getInstance(BaseMenuListener.class),
 				this.injector.getInstance(ColorMenuListener.class),
-				this.injector.getInstance(PatternMenuListener.class),
+				this.injector.getInstance(
+						PatternMenuListener.class
+				),
 				this.injector.getInstance(DoneMenuListener.class),
-				this.injector.getInstance(AdvancedFlyListener.class),
-				this.injector.getInstance(DoubleSlabListener.class),
-				this.injector.getInstance(GlazedTerracottaListener.class),
+				this.injector.getInstance(
+						AdvancedFlyListener.class
+				),
+				this.injector.getInstance(
+						DoubleSlabListener.class
+				),
+				this.injector.getInstance(
+						GlazedTerracottaListener.class
+				),
 				this.injector.getInstance(IronDoorListener.class),
 				this.injector.getInstance(SettingsListener.class)
 		);
@@ -226,7 +234,8 @@ public final class BuildersUtilities extends JavaPlugin {
 		final var loader = new PaperRestrictionLoader(
 				this.getSLF4JLogger(),
 				Arrays.asList(
-						this.getServer().getPluginManager().getPlugins()
+						this.getServer().getPluginManager()
+								.getPlugins()
 				),
 				List.of(RPlotSquared67.class, RWorldGuard7.class)
 		);
