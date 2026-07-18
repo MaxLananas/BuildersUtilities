@@ -16,24 +16,27 @@ public final class ConfigLoader {
 		this.plugin = plugin;
 	}
 
-	public boolean load(final List<Loadable> loadables) {
+	@SuppressWarnings("unchecked")
+	public boolean load(final List<Loadable<?>> loadables) {
 		boolean success = true;
-		for (final Loadable loadable : loadables) {
+		for (final Loadable<?> loadable : loadables) {
 			try {
 				final Path filePath = this.plugin.getDataFolder().toPath()
 						.resolve(loadable.fileName());
 				if (!Files.exists(filePath)) {
 					this.plugin.saveResource(loadable.fileName(), false);
 				}
-				loadable.config().load();
+				((AbstractConfig<?>) loadable.config()).load();
 				if (loadable.expectedVersion() >= 0) {
 					final var root = loadable.config().wrapper().rootNode();
 					if (root != null) {
 						final int actual = root.node("version").getInt(-1);
 						if (actual != loadable.expectedVersion()) {
 							this.plugin.getSLF4JLogger().error(
-									"{} has version {} but expected {}. Delete to regenerate.",
-									loadable.fileName(), actual, loadable.expectedVersion()
+									"{} has version {} but expected {}. "
+											+ "Delete to regenerate.",
+									loadable.fileName(), actual,
+									loadable.expectedVersion()
 							);
 							success = false;
 						}
@@ -49,17 +52,17 @@ public final class ConfigLoader {
 		return success;
 	}
 
-	public record Loadable(
+	public record Loadable<W extends ConfigurateWrapper<?>>(
 			String fileName,
-			AbstractConfig<?> config,
+			AbstractConfig<W> config,
 			int expectedVersion
 	) {
-		public static Loadable ofVersioned(
+		public static <W extends ConfigurateWrapper<?>> Loadable<W> ofVersioned(
 				final String fileName,
-				final AbstractConfig<?> config,
+				final AbstractConfig<W> config,
 				final int expectedVersion
 		) {
-			return new Loadable(fileName, config, expectedVersion);
+			return new Loadable<>(fileName, config, expectedVersion);
 		}
 	}
 }
