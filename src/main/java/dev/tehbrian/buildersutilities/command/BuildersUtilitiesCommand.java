@@ -98,21 +98,21 @@ public final class BuildersUtilitiesCommand {
 			sender.sendMessage(this.langConfig.c(
 					NodePath.path("commands", "help", "header")
 			));
-			for (final Component line : this.langConfig.cl(
-					NodePath.path("commands", "help", "commands")
+			for (final Component line : this.langConfig.cList(
+					NodePath.path("commands", "help", "lines")
 			)) {
 				sender.sendMessage(line);
 			}
 		});
 
 		final var rc = root.literal(
-				"rc", description("Reloads the chunks around you.")
+				"rc", description("Reloads chunks around you.")
 		)
 				.permission(Permissions.RC)
 				.senderType(PlayerSource.class)
 				.handler(c -> {
 					final var sender = c.sender().source();
-					final Collection<Chunk> chunksToReload = around(
+					final Collection<Chunk> toReload = around(
 							sender.getLocation().getChunk(),
 							min(
 									8,
@@ -120,32 +120,32 @@ public final class BuildersUtilitiesCommand {
 									sender.getServer().getViewDistance()
 							)
 					);
-					final ServerPlayer nmsPlayer =
+					final ServerPlayer nms =
 							((CraftPlayer) sender).getHandle();
-					final ServerLevel nmsLevel =
+					final ServerLevel level =
 							((CraftWorld) sender.getWorld()).getHandle();
-					for (final Chunk chunk : chunksToReload) {
+					for (final Chunk chunk : toReload) {
 						final long key = ChunkPos.asLong(
 								chunk.getX(), chunk.getZ()
 						);
-						final ChunkHolder nmsChunk = nmsLevel
+						final ChunkHolder holder = level
 								.getChunkSource().chunkMap
 								.getVisibleChunkIfPresent(key);
-						if (nmsChunk == null) {
+						if (holder == null) {
 							continue;
 						}
-						final LevelChunk nmsChunkToSend =
-								nmsChunk.getChunkToSend();
-						if (nmsChunkToSend == null) {
+						final LevelChunk toSend =
+								holder.getChunkToSend();
+						if (toSend == null) {
 							continue;
 						}
-						final var packet =
+						nms.connection.send(
 								new ClientboundLevelChunkWithLightPacket(
-										nmsChunkToSend,
-										nmsLevel.getLightEngine(),
+										toSend,
+										level.getLightEngine(),
 										null, null, false
-								);
-						nmsPlayer.connection.send(packet);
+								)
+						);
 					}
 					sender.sendMessage(this.langConfig.c(
 							NodePath.path("commands", "rc")
