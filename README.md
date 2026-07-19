@@ -38,17 +38,6 @@ and **Java 21** with new features tailored for BTE servers.
 | `/build time <value>` | | Set time (DAY, NOON, SUNSET, NIGHT, MIDNIGHT, SUNRISE) |
 | `/build weather <value>` | | Set weather (CLEAR, RAIN, THUNDER) |
 
-## Features
-
-- **Ability Menu** — Toggle noclip, night vision, advanced fly, iron door toggle, double slab break, glazed terracotta rotation
-- **Special Items** — Access to command blocks, barriers, light blocks, debug stick, and more
-- **Armor Color Creator** — RGB slider to create custom leather armor colors
-- **Banner Creator** — Full banner designer with undo, randomize, and reset
-- **Waypoints** — Personal waypoint system with persistent storage per player
-- **World Interactions** — PlotSquared and WorldGuard restrictions respected
-- **Configurable Messages** — All messages use MiniMessage syntax and support a custom prefix
-- **Chunk Reloader** — Instantly resend surrounding chunks to your client
-
 ## Permissions
 
 | Permission | Default | Description |
@@ -65,15 +54,6 @@ and **Java 21** with new features tailored for BTE servers.
 | `buildersutilities.reload` | op | Reload configuration |
 
 See [plugin.yml](src/main/resources/plugin.yml) for the full list.
-
-## Configuration
-
-All configuration files are generated on first run:
-
-- `config.yml` — Plugin settings (physics, redstone, explosions, etc.)
-- `lang.yml` — All messages, fully customizable with MiniMessage
-- `special.yml` — Items shown in the special items menu
-- `waypoints.yml` — Per-player waypoint storage (auto-generated)
 
 ## Building
 
